@@ -2,23 +2,17 @@ import {createContext, ReactNode} from "react";
 import {IAuthContext} from "../../../model/IAuthContext.ts";
 import useAuth from "../../../hooks/useAuth";
 
-const initialAuthContext: IAuthContext = {
-  isAuth: false,
-  user: {email: "", password: ""}
-};
-
-const AuthContext = createContext<IAuthContext>(initialAuthContext);
-
+const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 const AuthProvider = ({children}: AuthProviderProps) => {
-  const {user, isAuth} = useAuth();
+  const {user, isAuth, handleLogin, handleLogout} = useAuth();
 
   return (
-    <AuthContext.Provider value={{user, isAuth}}>
+    <AuthContext.Provider value={{isAuth, user, handleLogin, handleLogout}}>
       {children}
     </AuthContext.Provider>
   );

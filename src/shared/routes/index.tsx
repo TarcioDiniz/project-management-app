@@ -7,9 +7,7 @@ const Router = () => {
   return (
     <AuthProvider>
       <Routes>
-
         <Route path="/*" element={<Navigate to="/"/>}/>
-
         <Route path="/login" element={<Login/>}/>
         <Route path="/" element={
           <ProtectedRoute isPrivate>
