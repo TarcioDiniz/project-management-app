@@ -5,7 +5,8 @@ import * as Yup from 'yup';
 import React, {useContext, useState} from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {AuthContext} from "../../../shared/context/Auth";
+import AuthContext from "../../../shared/context/Auth";
+
 
 interface FormValues {
   email: string;

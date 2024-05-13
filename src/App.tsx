@@ -1,9 +1,13 @@
 import Router from "./shared/routes";
+import {AuthProvider} from "./shared/context/Auth";
+
 
 function App() {
 
   return (
-    <Router/>
+    <AuthProvider>
+      <Router/>
+    </AuthProvider>
   )
 }
 
