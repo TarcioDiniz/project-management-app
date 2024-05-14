@@ -1,7 +1,7 @@
 .paper {
   padding: 1rem;
-  color: #30ff41;
-  border: 1px solid #30ff41;
+  color: #1976D2;
+  border: 1px solid #1976D2;
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
@@ -9,7 +9,7 @@
 }
 
 .iconPassword {
-  color: #30ff41;
+  color: #1976D2;
 }
 
 .form {
@@ -22,14 +22,14 @@
 
 /* Seletor para campos preenchidos automaticamente */
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #0c4211 inset !important; /* Cor de fundo */
-  -webkit-text-fill-color: #30ff41 !important; /* Cor do texto */
+  -webkit-box-shadow: 0 0 0 1000px rgba(94, 161, 228, 0.24) inset !important; /* Cor de fundo */
+  -webkit-text-fill-color: rgb(23, 41, 63) !important; /* Cor do texto */
 }
 
 /* Para evitar que o estilo padrão do navegador seja aplicado */
 input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px #0c4211 inset !important; /* Cor de fundo */
-  -webkit-text-fill-color: #30ff41 !important; /* Cor do texto */
+  -webkit-box-shadow: 0 0 0 1000px rgba(94, 161, 228, 0.24) inset !important; /* Cor de fundo */
+  -webkit-text-fill-color: rgb(23, 41, 63) !important; /* Cor do texto */
 }
 
 .context {
@@ -43,7 +43,7 @@ input:-webkit-autofill:focus {
 }
 
 .area{
-  background: #201B2C;
+  background: white;
   background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
   width: 100%;
   height:100vh;
@@ -64,7 +64,7 @@ input:-webkit-autofill:focus {
   list-style: none;
   width: 20px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #1976D2;
   animation: animate 25s linear infinite;
   bottom: -150px;
 

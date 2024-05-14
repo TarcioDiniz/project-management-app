@@ -22,27 +22,27 @@ const validationSchema = Yup.object().shape({
 
 const sxInput = {
   "& input": {
-    color: "#30ff41", // Cor do texto
+    color: "#1976D2", // Cor do texto
   },
   "& label": {
-    color: "#30ff41", // Cor do texto do rótulo
+    color: "#1976D2", // Cor do texto do rótulo
   },
   "& fieldset": {
-    borderColor: "#30ff41", // Cor da borda
+    borderColor: "#1976D2", // Cor da borda
   },
   "&:hover fieldset": {
-    borderColor: "#38a441 !important", // Cor da borda quando o mouse está em cima
+    borderColor: "#1976D2 !important", // Cor da borda quando o mouse está em cima
   },
 }
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
 
-  borderColor: "#30ff41",
-  backgroundColor: "#30ff41",
-  color: "#0c4211",
+  borderColor: "#082a4d",
+  backgroundColor: "#0a2f54",
+  color: "#a4c6e8",
   '&:hover': {
-    color: "#30ff41",
-    backgroundColor: "#0c4211",
+    color: "#b6d5f4",
+    backgroundColor: "#031a32",
   },
 }));
 
@@ -53,7 +53,7 @@ const Login = () => {
     throw new Error("AuthContext not provided correctly");
   }
 
-  const { handleLogin } = authContext;
+  const {handleLogin} = authContext;
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -96,13 +96,11 @@ const Login = () => {
                   type="email"
                   fullWidth
                   variant="outlined"
-                  color="success"
                   error={errors.email && touched.email}
                   helperText={errors.email && touched.email ? errors.email : ''}
                   sx={sxInput}
                 />
                 <Field
-                  color="success"
                   name="password"
                   as={TextField}
                   label="Password"
