@@ -16,8 +16,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import React, {useContext, useState} from "react";
 import AuthContext from "../../../context/Auth";
 
-const pages = [""];
-const settings = ['Profile', 'Logout'];
+const pages = ["MY PROJECTS"];
+const settings = ['Profile', 'Logout','Register Project','Link students'];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);

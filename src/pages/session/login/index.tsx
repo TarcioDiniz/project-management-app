@@ -74,7 +74,9 @@ const Login = () => {
     handleLogin(values)
     actions.setSubmitting(false);
   };
-
+  const handleRegister = () => {
+    // Aqui você pode adicionar a lógica para lidar com o registro
+  };
   return (
     <>
       <div className={styles.context}>
@@ -132,6 +134,12 @@ const Login = () => {
                 />
                 <ColorButton fullWidth type="submit" variant="outlined">
                   Login
+                </ColorButton>
+                <Typography variant="h6" align="center" style={{margin: '10px 0'}}>
+                  OU
+                </Typography>
+                <ColorButton fullWidth variant="outlined" onClick={handleRegister}>
+                  Cadastrar
                 </ColorButton>
               </Form>
             )}
