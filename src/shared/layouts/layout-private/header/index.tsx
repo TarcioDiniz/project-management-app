@@ -11,18 +11,24 @@ import {
   Tooltip,
   Typography
 } from "@mui/material";
-import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import MenuIcon from '@mui/icons-material/Menu';
 import React, {useContext, useState} from "react";
 import AuthContext from "../../../context/Auth";
+import {useNavigate} from "react-router-dom";
 
-const pages = [""];
+const pages = [
+  {
+    name: "Project",
+    router: "/"
+  },
+];
 const settings = ['Profile', 'Logout'];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
+  const navigate = useNavigate();
   const {handleLogout} = useContext(AuthContext);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -40,11 +46,15 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
+  function handleNavigate(router: string) {
+    navigate(router);
+  }
+
   return (
     <AppBar>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <BusinessCenterOutlinedIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
+          <RocketLaunchIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
           <Typography
             variant="h6"
             noWrap
@@ -60,7 +70,6 @@ const Header = () => {
               textDecoration: 'none',
             }}
           >
-            PROJECT MANAGER
           </Typography>
 
           <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -93,13 +102,16 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={() => {
+                  handleCloseNavMenu();
+                  handleNavigate(page.router);
+                }}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <BusinessCenterOutlinedIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
+          <RocketLaunchIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
           <Typography
             variant="h5"
             noWrap
@@ -116,16 +128,18 @@ const Header = () => {
               textDecoration: 'none',
             }}
           >
-            PM
           </Typography>
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.name}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  handleNavigate(page.router);
+                }}
                 sx={{my: 2, color: 'white', display: 'block'}}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
