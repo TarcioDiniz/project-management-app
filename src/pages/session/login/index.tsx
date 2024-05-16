@@ -136,10 +136,10 @@ const Login = () => {
                   Login
                 </ColorButton>
                 <Typography variant="h6" align="center" style={{margin: '10px 0'}}>
-                  OU
+                  OR
                 </Typography>
                 <ColorButton fullWidth variant="outlined" onClick={handleRegister}>
-                  Cadastrar
+                  Register
                 </ColorButton>
               </Form>
             )}
