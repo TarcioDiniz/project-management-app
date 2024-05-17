@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IUser } from "../../model/IUser";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {ILogin} from "../../model/ILogin.ts";
 
 const AUTH_KEY = "auth";
 const USERS_KEY = "users";
@@ -11,7 +12,7 @@ const useAuth = () => {
   const [user, setUser] = useState<IUser | null>(null);
   const navigate = useNavigate();
 
-  const login = (userData: IUser) => {
+  const login = (userData: ILogin) => {
     const storedUsers = localStorage.getItem(USERS_KEY);
     if (storedUsers) {
       const users = JSON.parse(storedUsers);

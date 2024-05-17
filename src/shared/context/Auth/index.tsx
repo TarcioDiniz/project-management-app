@@ -9,7 +9,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
 
   useEffect(() => {
     auth.checkAuthStatus();
-  }, [auth]);
+  }, []);
 
   const authContextValue: IAuthContext = {
     isAuth: auth.isAuthenticated,

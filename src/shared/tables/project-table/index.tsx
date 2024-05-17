@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import {IProject} from "../../../model/IProject.ts";
+
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,18 +34,13 @@ const StyledTableRow = styled(TableRow)(() => ({
   },
 }));
 
-function createData(
-  name: string,
-  description: string,
-) {
-  return {name, description};
+interface ProjectTableProps {
+  projects: IProject[]
+  onDelete: (project: IProject) => void;
+  onEdit: (project: IProject) => void;
 }
 
-const rows = [
-  createData('Projeto Mock 1', "Foi gerado automaticamente como teste.",)
-];
-const ProjectTable = () => {
-
+const ProjectTable = ({projects, onDelete, onEdit}: ProjectTableProps) => {
   return (
     <TableContainer style={{boxShadow: "0px 10px 15px -3px rgba(0,0,0,0.1)"}}>
       <Table sx={{minWidth: 700}} aria-label="customized table">
@@ -55,13 +52,13 @@ const ProjectTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell align={"center"}>{row.name}</StyledTableCell>
-              <StyledTableCell align={"center"}>{row.description}</StyledTableCell>
+          {projects.map((project: IProject) => (
+            <StyledTableRow key={project.id}>
+              <StyledTableCell align={"center"}>{project.name}</StyledTableCell>
+              <StyledTableCell align={"center"}>{project.description}</StyledTableCell>
               <StyledTableCell align={"center"}>
-                <Button><EditIcon/></Button>
-                <Button><DeleteIcon/></Button>
+                <Button onClick={() => onEdit(project)}><EditIcon/></Button>
+                <Button onClick={() => onDelete(project)}><DeleteIcon/></Button>
               </StyledTableCell>
             </StyledTableRow>
           ))}
