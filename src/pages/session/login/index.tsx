@@ -6,6 +6,7 @@ import React, {useContext, useState} from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import AuthContext from "../../../shared/context/Auth";
+import {useNavigate} from "react-router-dom";
 
 
 interface FormValues {
@@ -46,7 +47,10 @@ const ColorButton = styled(Button)<ButtonProps>(() => ({
   },
 }));
 
+
+
 const Login = () => {
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
 
   if (!authContext) {
@@ -75,7 +79,7 @@ const Login = () => {
     actions.setSubmitting(false);
   };
   const handleRegister = () => {
-    // Aqui você pode adicionar a lógica para lidar com o registro
+    navigate("/register");
   };
   return (
     <>

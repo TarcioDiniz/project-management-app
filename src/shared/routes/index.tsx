@@ -5,6 +5,7 @@ import Project from "../../pages/private/project";
 import {useContext} from "react";
 import AuthContext from "../context/Auth";
 import Teams from "../../pages/private/teams";
+import Register from "../../pages/session/register";
 
 const Router = () => {
   const authContext = useContext(AuthContext);
@@ -17,6 +18,11 @@ const Router = () => {
       ) : (
         <Route path="/login" element={<Login/>}/>
       )}
+        {authContext && authContext.isAuth ? (
+            <Route path="/register" element={<Navigate to="/"/>}/>
+        ) : (
+            <Route path="/register" element={<Register/>}/>
+        )}
       <Route
         path="/"
         element={
