@@ -3,10 +3,11 @@ import {ProfileType} from "../../enums/ProfileType.ts";
 import * as Yup from 'yup';
 import {
   Avatar,
+  Badge,
   Box,
   Button,
   FormControl,
-  IconButton, InputAdornment,
+  IconButton,
   InputLabel,
   MenuItem,
   Modal,
@@ -16,10 +17,9 @@ import {
 import {Form, Formik} from "formik";
 import React, {useCallback, useRef, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Title from "../../components/title";
 import StringAvatar from "../../helpers/StringAvatar.ts";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
 
 interface DialogUserProps {
   open: boolean;
@@ -101,6 +101,14 @@ const DialogUser = ({open, onClose, initialValues, onSubmit, editing}: DialogUse
     event.preventDefault();
   };
 
+  const handleDeleteAvatar = (setFieldValue: (
+    field: string,
+    value: string,
+    shouldValidate?: boolean) => void) => {
+    setAvatar("");
+    setFieldValue("photo", "");
+  };
+
   const handleReset = () => {
     setIsEditing(false);
     onClose();
@@ -134,13 +142,29 @@ const DialogUser = ({open, onClose, initialValues, onSubmit, editing}: DialogUse
               <Box display="flex" flexDirection="column" alignItems="center"
                    onDrop={(event) => handleDrop(event, setFieldValue)}
                    onDragOver={handleDragOver}>
-                <Avatar
-                  src={avatar}
-                  alt="User Avatar"
-                  sx={{width: 100, height: 100, cursor: isEditing ? 'pointer' : 'default'}}
-                  onClick={isEditing ? handleAvatarClick : undefined}
-                  {...StringAvatar(values.name)}
-                />
+                <Badge
+                  overlap="circular"
+                  anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                  badgeContent={
+                    isEditing && avatar && (
+                      <IconButton
+                        size="small"
+                        style={{background: "black", color: "white"}}
+                        onClick={() => handleDeleteAvatar(setFieldValue)}
+                      >
+                        <DeleteIcon fontSize="small"/>
+                      </IconButton>
+                    )
+                  }
+                >
+                  <Avatar
+                    src={avatar}
+                    alt="User Avatar"
+                    sx={{width: 100, height: 100, cursor: isEditing ? 'pointer' : 'default'}}
+                    onClick={isEditing ? handleAvatarClick : undefined}
+                    {...StringAvatar(values.name)}
+                  />
+                </Badge>
                 {isEditing && (
                   <input
                     type="file"
