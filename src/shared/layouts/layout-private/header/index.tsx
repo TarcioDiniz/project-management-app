@@ -20,6 +20,7 @@ import DialogUser from "../../../dialogs/dialog-user";
 import {IUser} from "../../../../model/IUser.ts";
 import useUsers from "../../../../hooks/useUsers";
 import StringAvatar from "../../../helpers/StringAvatar.ts";
+import {toast} from "react-toastify";
 
 const pages = [
   {
@@ -35,6 +36,7 @@ const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
+  const [valueUser, setValueUser] = useState<IUser | null>(null);
   const _user = useUsers();
 
   const handleOpenModal = () => {
@@ -48,7 +50,9 @@ const Header = () => {
   const handleSubmit = (values: IUser) => {
     // console.log(values);
     _user.updateUser(values);
+    setValueUser(values);
     handleCloseModal();
+    toast.success("User updated successfully.");
   };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -168,7 +172,7 @@ const Header = () => {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                 <Avatar alt="User Avatar"
-                        src={authContext?.user?.photo}
+                        src={valueUser?.photo || authContext?.user?.photo}
                         {...StringAvatar(authContext?.user?.name)}/>
               </IconButton>
             </Tooltip>
