@@ -4,6 +4,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Project from "../../pages/private/project";
 import {useContext} from "react";
 import AuthContext from "../context/Auth";
+import Teams from "../../pages/private/teams";
 
 const Router = () => {
   const authContext = useContext(AuthContext);
@@ -21,6 +22,14 @@ const Router = () => {
         element={
           <ProtectedRoute isPrivate>
             <Project/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/teams"
+        element={
+          <ProtectedRoute isPrivate>
+            <Teams/>
           </ProtectedRoute>
         }
       />

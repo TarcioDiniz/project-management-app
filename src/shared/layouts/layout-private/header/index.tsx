@@ -27,6 +27,10 @@ const pages = [
     name: "Project",
     router: "/"
   },
+  {
+    name: "Teams",
+    router: "/teams"
+  },
 ];
 const settings = ['Profile', 'Logout'];
 
