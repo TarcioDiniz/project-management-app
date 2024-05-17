@@ -29,7 +29,8 @@ const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
-  const {handleLogout} = useContext(AuthContext);
+
+  const authContext = useContext(AuthContext);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -169,7 +170,9 @@ const Header = () => {
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={() => {
                   if (setting === "Logout") {
-                    handleLogout();
+                    if (authContext) {
+                      authContext.handleLogout();
+                    }
                   }
                   handleCloseUserMenu();
                 }}>
