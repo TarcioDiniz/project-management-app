@@ -132,15 +132,14 @@ const Login = () => {
                   }}
                   sx={sxInput}
                 />
-                <ColorButton fullWidth type="submit" variant="outlined">
-                  Login
-                </ColorButton>
-                <Typography variant="h6" align="center" style={{margin: '10px 0'}}>
-                  OR
-                </Typography>
-                <ColorButton fullWidth variant="outlined" onClick={handleRegister}>
-                  Register
-                </ColorButton>
+                <div className={styles.buttons}>
+                  <ColorButton fullWidth variant="outlined" onClick={handleRegister}>
+                    Register
+                  </ColorButton>
+                  <ColorButton fullWidth type="submit" variant="outlined">
+                    Login
+                  </ColorButton>
+                </div>
               </Form>
             )}
           </Formik>

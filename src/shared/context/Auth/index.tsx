@@ -1,29 +1,25 @@
-import {createContext, ReactNode} from "react";
+import React, {createContext, useEffect} from "react";
 import {IAuthContext} from "../../../model/IAuthContext.ts";
 import useAuth from "../../../hooks/useAuth";
 
-const AuthContext = createContext<IAuthContext>({
-  isAuth: false,
-  user: {email: "", password: ""},
-  handleLogin: () => {
-  },
-  handleLogout: () => {
-  }
-});
+const AuthContext = createContext<IAuthContext | null>(null);
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
+const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+  const auth = useAuth();
 
-const AuthProvider = ({children}: AuthProviderProps) => {
-  const {user, isAuth, handleLogin, handleLogout} = useAuth();
+  useEffect(() => {
+    auth.checkAuthStatus();
+  }, [auth]);
 
-  return (
-    <AuthContext.Provider value={{user, isAuth, handleLogin, handleLogout}}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const authContextValue: IAuthContext = {
+    isAuth: auth.isAuthenticated,
+    user: auth.user,
+    handleLogin: auth.login,
+    handleLogout: auth.logout
+  };
+
+  return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
 };
 
-export {AuthProvider}
+export {AuthProvider};
 export default AuthContext;

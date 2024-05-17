@@ -1,27 +1,32 @@
-import {ReactNode, useContext} from "react";
-import {Navigate} from "react-router-dom";
+import { ReactNode, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import AuthContext from "../context/Auth";
 
 interface ProtectedRouteProps {
-  children: ReactNode
+  children: ReactNode;
   isPrivate?: boolean;
 }
 
-const ProtectedRoute = ({
-                          children,
-                          isPrivate = false,
-                        }: ProtectedRouteProps) => {
-  const {isAuth} = useContext(AuthContext);
+const ProtectedRoute = ({ children, isPrivate = false }: ProtectedRouteProps) => {
+  const authContext = useContext(AuthContext);
 
-  if (!isAuth && isPrivate) {
-    return <Navigate to="/login"/>;
+  if (authContext) {
+    const { isAuth } = authContext;
+
+    if (!isAuth && isPrivate) {
+      return <Navigate to="/login" />;
+    }
+
+    if (isAuth && !isPrivate) {
+      return <Navigate to="/" />;
+    }
+
+    if (isAuth && isPrivate) {
+      return children;
+    }
   }
 
-  if (isAuth && !isPrivate) {
-    return <Navigate to="/"/>;
-  }
-
-  return children;
+  return <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

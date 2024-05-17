@@ -5,17 +5,18 @@ import Router from "../routes";
 
 const Layouts = () => {
 
-  const {isAuth} = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
 
   return (
     <>
-      {isAuth ? (
+      {authContext && authContext.isAuth ? (
         <>
           <Header/>
           <Router/>
         </>
-      ) : <Router/>
-      }
+      ) : (
+        <Router/>
+      )}
     </>
   );
 }
