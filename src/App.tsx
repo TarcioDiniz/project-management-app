@@ -9,12 +9,9 @@ function App() {
 
   useEffect(() => {
     const usersString = localStorage.getItem(USERS_KEY);
-    if (usersString) {
-      const users = JSON.parse(usersString);
-      if (!users || users.length === 0) {
-        localStorage.setItem(USERS_KEY, JSON.stringify(Users));
-        console.log('Default users generated and saved to Local Storage.');
-      }
+    if (!usersString) {
+      localStorage.setItem(USERS_KEY, JSON.stringify(Users));
+      console.log('Default users generated and saved to Local Storage.');
     }
   }, []);
 
