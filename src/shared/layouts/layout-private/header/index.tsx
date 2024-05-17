@@ -16,6 +16,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import React, {useContext, useState} from "react";
 import AuthContext from "../../../context/Auth";
 import {useNavigate} from "react-router-dom";
+import DialogUser from "../../../dialogs/dialog-user";
+import {IUser} from "../../../../model/IUser.ts";
+import useUsers from "../../../../hooks/useUsers";
+import StringAvatar from "../../../helpers/StringAvatar.ts";
 
 const pages = [
   {
@@ -28,9 +32,24 @@ const settings = ['Profile', 'Logout'];
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
-
   const authContext = useContext(AuthContext);
+  const _user = useUsers();
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleSubmit = (values: IUser) => {
+    // console.log(values);
+    _user.updateUser(values);
+    handleCloseModal();
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -148,7 +167,9 @@ const Header = () => {
           <Box sx={{flexGrow: 0}}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                <Avatar alt="User Avatar"
+                        src={authContext?.user?.photo}
+                        {...StringAvatar(authContext?.user?.name)}/>
               </IconButton>
             </Tooltip>
             <Menu
@@ -174,6 +195,9 @@ const Header = () => {
                       authContext.handleLogout();
                     }
                   }
+                  if (setting === "Profile") {
+                    handleOpenModal();
+                  }
                   handleCloseUserMenu();
                 }}>
                   <Typography textAlign="center">{setting}</Typography>
@@ -182,6 +206,12 @@ const Header = () => {
             </Menu>
           </Box>
         </Toolbar>
+        <DialogUser
+          editing
+          open={modalOpen}
+          onClose={handleCloseModal}
+          initialValues={authContext?.user}
+          onSubmit={handleSubmit}/>
       </Container>
     </AppBar>
   );

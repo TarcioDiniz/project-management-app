@@ -2,6 +2,7 @@ import {useState} from "react";
 import {IUser} from "../../model/IUser.ts";
 
 const USERS_KEY = "users";
+const AUTH_KEY = "auth";
 
 const useUsers = () => {
   const [users, setUsers] = useState<IUser[]>(() => {
@@ -22,6 +23,7 @@ const useUsers = () => {
   const updateUser = (updatedUser: IUser) => {
     const updatedUsers = users.map(user => user.id === updatedUser.id ? updatedUser : user);
     saveUsers(updatedUsers);
+    localStorage.setItem(AUTH_KEY, JSON.stringify(updatedUser));
   };
 
   const deleteUser = (userId: number) => {

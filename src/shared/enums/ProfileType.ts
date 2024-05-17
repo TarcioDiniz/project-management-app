@@ -1,7 +1,7 @@
 export enum ProfileType {
-  TEACHER,
-  INTERN,
-  JUNIOR,
-  SENIOR,
-  MASTER,
+  TEACHER = "TEACHER",
+  INTERN = "INTERN",
+  JUNIOR = "JUNIOR",
+  SENIOR = "SENIOR",
+  MASTER = "MASTER",
 }
