@@ -15,6 +15,9 @@ import {
 import {ITeam} from "../../../model/ITeam.ts";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AuthContext from "../../context/Auth";
+import {useContext} from "react";
+import {ProfileType} from "../../enums/ProfileType.ts";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,6 +46,8 @@ interface TeamsTableProps {
 }
 
 const TeamsTable = ({teams, onDelete, onEdit}: TeamsTableProps) => {
+  const authContext = useContext(AuthContext);
+
   return (
     <TableContainer style={{boxShadow: "0px 10px 15px -3px rgba(0,0,0,0.1)"}}>
       <Table sx={{minWidth: 700}} aria-label="customized table">
@@ -51,7 +56,10 @@ const TeamsTable = ({teams, onDelete, onEdit}: TeamsTableProps) => {
             <StyledTableCell align={"center"}>Name</StyledTableCell>
             <StyledTableCell align={"center"}>Project</StyledTableCell>
             <StyledTableCell align={"center"}>Team</StyledTableCell>
-            <StyledTableCell align={"center"}>Action</StyledTableCell>
+            {authContext?.user?.profile === ProfileType.TEACHER ? (
+              <StyledTableCell align={"center"}>Action</StyledTableCell>
+            ) : null}
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -68,10 +76,12 @@ const TeamsTable = ({teams, onDelete, onEdit}: TeamsTableProps) => {
                   ))}
                 </List>
               </StyledTableCell>
-              <StyledTableCell align={"center"}>
-                <Button onClick={() => onEdit(team)}><EditIcon/></Button>
-                <Button onClick={() => onDelete(team)}><DeleteIcon/></Button>
-              </StyledTableCell>
+              {authContext?.user?.profile === ProfileType.TEACHER ? (
+                <StyledTableCell align={"center"}>
+                  <Button onClick={() => onEdit(team)}><EditIcon/></Button>
+                  <Button onClick={() => onDelete(team)}><DeleteIcon/></Button>
+                </StyledTableCell>
+              ) : null}
             </StyledTableRow>
           ))}
         </TableBody>

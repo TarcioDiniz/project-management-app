@@ -12,6 +12,9 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {IProject} from "../../../model/IProject.ts";
+import {useContext} from "react";
+import AuthContext from "../../context/Auth";
+import {ProfileType} from "../../enums/ProfileType.ts";
 
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -41,6 +44,8 @@ interface ProjectTableProps {
 }
 
 const ProjectTable = ({projects, onDelete, onEdit}: ProjectTableProps) => {
+  const authContext = useContext(AuthContext);
+
   return (
     <TableContainer style={{boxShadow: "0px 10px 15px -3px rgba(0,0,0,0.1)"}}>
       <Table sx={{minWidth: 700}} aria-label="customized table">
@@ -48,7 +53,9 @@ const ProjectTable = ({projects, onDelete, onEdit}: ProjectTableProps) => {
           <TableRow>
             <StyledTableCell align={"center"}>Name</StyledTableCell>
             <StyledTableCell align={"center"}>Description</StyledTableCell>
-            <StyledTableCell align={"center"}>Action</StyledTableCell>
+            {authContext?.user?.profile === ProfileType.TEACHER ? (
+              <StyledTableCell align={"center"}>Action</StyledTableCell>
+            ) : null}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -56,10 +63,12 @@ const ProjectTable = ({projects, onDelete, onEdit}: ProjectTableProps) => {
             <StyledTableRow key={project.id}>
               <StyledTableCell align={"center"}>{project.name}</StyledTableCell>
               <StyledTableCell align={"center"}>{project.description}</StyledTableCell>
-              <StyledTableCell align={"center"}>
-                <Button onClick={() => onEdit(project)}><EditIcon/></Button>
-                <Button onClick={() => onDelete(project)}><DeleteIcon/></Button>
-              </StyledTableCell>
+              {authContext?.user?.profile === ProfileType.TEACHER ? (
+                <StyledTableCell align={"center"}>
+                  <Button onClick={() => onEdit(project)}><EditIcon/></Button>
+                  <Button onClick={() => onDelete(project)}><DeleteIcon/></Button>
+                </StyledTableCell>
+              ) : null}
             </StyledTableRow>
           ))}
         </TableBody>
