@@ -19,6 +19,7 @@ import {IUser} from "../../../model/IUser";
 import useProjects from "../../../hooks/useProjects";
 import useUsers from "../../../hooks/useUsers";
 import {ITeam} from "../../../model/ITeam.ts";
+import useTeams from "../../../hooks/useTeams";
 
 interface DialogTeamProps {
   open: boolean;
@@ -38,6 +39,7 @@ const DialogTeam = ({open, handleClose, onSubmit, selectTeam}: DialogTeamProps) 
   const users = useUsers();
   const filteredUsers: IUser[] = users.users.filter(user => user.profile !== ProfileType.TEACHER);
   const projects = useProjects();
+  const _teams = useTeams();
 
   const validationSchema = Yup.object({
     name: Yup.string().required('Name is required'),
@@ -65,7 +67,7 @@ const DialogTeam = ({open, handleClose, onSubmit, selectTeam}: DialogTeamProps) 
       <DialogTitle>Create Team</DialogTitle>
       <Formik<FormValues>
         initialValues={{
-          id: 0,
+          id: selectTeam?.id || _teams.teams[_teams.teams.length - 1]?.id + 1 || 0,
           name: selectTeam?.name || "",
           project: selectTeam?.project?.id || null,
           members: selectTeam?.members.map(m => m.id) || []
